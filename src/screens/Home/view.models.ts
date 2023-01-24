@@ -1,0 +1,7 @@
+
+
+const useHomeInViewModel = () =>{
+
+}
+
+export { useHomeInViewModel };
