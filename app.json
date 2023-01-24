@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "libraryDev",
+    "slug": "libraryDev",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
