@@ -1,8 +1,12 @@
 export default {
   colors: {
-    background: '#FDFDFD',
+    background: '#F1F2F3',
     primary: "#EEBC84",
-    white: "#FFFFFF"
+    white: "#FFFFFF",
+    gray: "#9D9D9D",
+    title: '#1F2B2E',
+    shapeinput: "#C4C4C4",
+
 
   },
 

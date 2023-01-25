@@ -1,1 +1,5 @@
-export interface HomeViewModel {}
+export interface HomeViewModel {
+
+  openMenu(): void;
+
+}
