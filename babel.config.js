@@ -12,6 +12,8 @@ module.exports = function(api) {
             '@routes': './src/routes',
             '@components': './src/components',
             '@utils': './src/utils',
+            '@global': './src/global',
+
           }
         },
       ],

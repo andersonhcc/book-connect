@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { Switch } from 'react-native';
 
@@ -34,6 +34,7 @@ import {
   IconExit,
 
 } from './styles';
+import { ThemeContext, ThemeType } from '@global/styles/theme';
 
 
 const DrawerStyles = (props: any) => {
@@ -41,11 +42,14 @@ const DrawerStyles = (props: any) => {
   const theme = useTheme();
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
+  const { toggleTheme, theme: themes } = useContext(ThemeContext);
 
   function toggleSwitch() {
 
     setIsEnabled(prevState => !prevState)
   }
+
+  const isDarkTheme = themes === ThemeType.dark;
 
   return (
     <Container>
@@ -107,8 +111,8 @@ const DrawerStyles = (props: any) => {
               trackColor={{ false: '#767577', true: `${theme.colors.title}` }}
               thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
+              onValueChange={toggleTheme}
+              value={isDarkTheme}
               style={{ marginRight: 5 }}
             />
           </BoxThemeMode>

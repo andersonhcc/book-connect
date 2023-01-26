@@ -2,6 +2,10 @@ import React from 'react';
 
 import { useHomeInViewModel } from './view.models';
 import { categories } from '@utils/categories';
+import { StatusBar } from 'react-native';
+
+import { useThemeProvider } from '@global/styles/theme';
+import { ThemeType } from '@global/styles/theme';
 
 import {
   Container,
@@ -21,18 +25,25 @@ import {
 } from './styles'
 
 const Home: React.FC = () => {
-  
+
   const { openMenu } = useHomeInViewModel();
- 
+  const { theme } = useThemeProvider();
+  const isDarkTheme = theme === ThemeType.dark;
 
   return (
     <Container>
+      <StatusBar
+        barStyle={isDarkTheme ? 'light-content' : 'dark-content'}
+        backgroundColor="transparent"
+        translucent
+      />
+
       <Header>
         <ButtonMenu onPress={openMenu}>
           <IconMenu />
         </ButtonMenu>
 
-        <ImageProfile source={{ uri: 'https://ui-avatars.com/api/?background=random&name=anderson'}}/>
+        <ImageProfile source={{ uri: 'https://ui-avatars.com/api/?background=random&name=anderson' }} />
       </Header>
 
       <Content>

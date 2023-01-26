@@ -4,11 +4,12 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-gesture-handler';
 
 import * as SplashScreen from "expo-splash-screen";
-import { ThemeProvider } from "styled-components";
 
-import theme from './src/global/styles/theme';
+import { ThemeType, useThemeProvider } from '@global/styles/theme';
+
 
 import { Routes } from './src/routes';
+import { ThemeProvider } from '@global/styles/theme';
 
 import {
   useFonts,
@@ -23,6 +24,9 @@ SplashScreen.preventAutoHideAsync();
 SplashScreen.hideAsync();
 
 export default function App() {
+  const { theme } = useThemeProvider();
+  const isDarkTheme = theme === ThemeType.dark;
+
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -40,20 +44,19 @@ export default function App() {
 
   if (!fontsLoaded) return null;
 
+  console.log(isDarkTheme)
+
 
   return (
-    <ThemeProvider theme={theme}>
-      <StatusBar
-        barStyle='dark-content'
-        backgroundColor="transparent"
-        translucent
-      />
+    <ThemeProvider>
 
-      <GestureHandlerRootView style={{flex: 1}}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
         <Routes />
 
       </GestureHandlerRootView>
 
     </ThemeProvider>
+
+
   );
 }

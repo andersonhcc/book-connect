@@ -1,4 +1,5 @@
-export default {
+import { DefaultTheme } from 'styled-components';
+export const lightTheme: DefaultTheme = {
   colors: {
     background: '#F1F2F3',
     primary: "#EEBC84",
@@ -17,5 +18,4 @@ export default {
     bold: 'Poppins_700Bold',
 
   },
-
 };
