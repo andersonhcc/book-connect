@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { FlatList } from 'react-native';
 
 import { useHomeInViewModel } from './view.models';
 import { categories } from '@utils/categories';
@@ -6,6 +7,9 @@ import { StatusBar } from 'react-native';
 
 import { useThemeProvider } from '@global/styles/theme';
 import { ThemeType } from '@global/styles/theme';
+import { IBook } from '@dtos/index';
+
+import { Book } from '@components/Book';
 
 import {
   Container,
@@ -22,13 +26,30 @@ import {
   IconMicro,
   Categories,
   TitleCategory,
-} from './styles'
+  Main,
+} from './styles';
+import { api } from '@services/api';
+
 
 const Home: React.FC = () => {
 
   const { openMenu } = useHomeInViewModel();
   const { theme } = useThemeProvider();
   const isDarkTheme = theme === ThemeType.dark;
+  const [book, setBooks] = useState<IBook[]>([]);
+
+  useEffect(() => {
+    getBooks();
+  }, [])
+
+  async function getBooks() {
+    const { data } = await api.get("/");
+
+    setBooks(data);
+
+  }
+
+
 
   return (
     <Container>
@@ -70,6 +91,15 @@ const Home: React.FC = () => {
         ))}
 
       </Categories>
+
+      <FlatList
+        data={book}
+        horizontal={true}
+        keyExtractor={(item) => item.title}
+        renderItem={({ item }) => (
+          <Book data={item}/>
+        )}
+      />
 
     </Container>
   );

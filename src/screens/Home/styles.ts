@@ -109,5 +109,6 @@ export const TitleCategory = styled.Text`
 
 `;
 
+export const Main = styled.View``;
 
 

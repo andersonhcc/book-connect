@@ -13,7 +13,8 @@ module.exports = function(api) {
             '@components': './src/components',
             '@utils': './src/utils',
             '@global': './src/global',
-
+            '@services': './src/services',
+            '@dtos': './src/dtos',
           }
         },
       ],
