@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Modal, Pressable } from 'react-native';
 
 import { useHomeInViewModel } from './view.models';
 import { categories } from '@utils/categories';
@@ -10,6 +10,7 @@ import { ThemeType } from '@global/styles/theme';
 import { IBook } from '@dtos/index';
 
 import { Book } from '@components/Book';
+import { InfoBook } from '@components/InfoBook';
 
 import {
   Container,
@@ -38,17 +39,16 @@ const Home: React.FC = () => {
   const isDarkTheme = theme === ThemeType.dark;
   const [book, setBooks] = useState<IBook[]>([]);
 
+
   useEffect(() => {
     getBooks();
   }, [])
 
   async function getBooks() {
     const { data } = await api.get("/");
-
-    setBooks(data);
+    setBooks(data.items);
 
   }
-
 
 
   return (
@@ -95,9 +95,9 @@ const Home: React.FC = () => {
       <FlatList
         data={book}
         horizontal={true}
-        keyExtractor={(item) => item.title}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Book data={item}/>
+              <Book data={item} />
         )}
       />
 

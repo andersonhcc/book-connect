@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Modal } from 'react-native';
+
+import { InfoBook } from '@components/InfoBook';
 
 import {
   Container,
@@ -9,15 +12,37 @@ import {
 
 import { IBook } from 'src/dtos';
 
+type Props = {
+  data: any;
+}
 
-const Book = (data: any) => {
-console.log('oi' + data.items[0].volumeInfo.title);
+
+function Book({ data }: Props) {
+
+  const [visible, setVisible] = useState(false);
+
 
   return (
-    <Container>
-      <ImageBook source={{ uri: 'https://books.google.com/books/content?id=gRMsAAAAYAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api' }} />
-      <TitleBook>{data.items[0].volumeInfo.title}</TitleBook>
-      <AuthorBook>{data.items.volumeInfo.authors[0]}</AuthorBook>
+    <Container onPress={() => setVisible(true)}>
+      <ImageBook source={{ uri: `${data.volumeInfo.imageLinks.thumbnail}` }} />
+      <TitleBook>{data.volumeInfo.title}</TitleBook>
+      <AuthorBook>{data.volumeInfo.authors[0]}</AuthorBook>
+
+
+      <Modal
+        animationType='fade'
+        visible={visible}
+      >
+
+        <InfoBook
+          closeModal={() => setVisible(false)}
+          data={data}
+        />
+
+      </Modal>
+
+
+
     </Container>
   );
 
