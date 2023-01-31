@@ -1,8 +1,9 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 
@@ -58,7 +59,11 @@ export const TitleAbout = styled.Text`
   color: ${({ theme }) => theme.colors.title};
 `;
 
-export const About = styled.Text``;
+export const About = styled.Text`
+  font-size: ${RFValue(14)}px;
+  font-family: ${({ theme }) => theme.fonts.medium};
+  color: ${({ theme }) => theme.colors.gray};
+`;
 
 export const BoxDescription = styled.View``;
 
@@ -68,4 +73,8 @@ export const TitleDescription = styled.Text`
   color: ${({ theme }) => theme.colors.title};
 `;
 
-export const Description = styled.Text``;
+export const Description = styled.Text`
+  font-size: ${RFValue(14)}px;
+  font-family: ${({ theme }) => theme.fonts.medium};
+  color: ${({ theme }) => theme.colors.gray};
+`;

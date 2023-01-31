@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, Modal, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 
 import { useHomeInViewModel } from './view.models';
 import { categories } from '@utils/categories';
 import { StatusBar } from 'react-native';
+
+import { useTheme } from 'styled-components';
 
 import { useThemeProvider } from '@global/styles/theme';
 import { ThemeType } from '@global/styles/theme';
 import { IBook } from '@dtos/index';
 
 import { Book } from '@components/Book';
-import { InfoBook } from '@components/InfoBook';
+
+import { booksAsync } from '@services/index';
 
 import {
   Container,
@@ -29,7 +32,8 @@ import {
   TitleCategory,
   Main,
 } from './styles';
-import { api } from '@services/api';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Loading } from '@components/Loading';
 
 
 const Home: React.FC = () => {
@@ -38,16 +42,31 @@ const Home: React.FC = () => {
   const { theme } = useThemeProvider();
   const isDarkTheme = theme === ThemeType.dark;
   const [book, setBooks] = useState<IBook[]>([]);
+  const [categorySelect, setCategorySelect] = useState('programming')
+  const [loading, setLoading] = useState(false);
+  const themes = useTheme();
 
 
   useEffect(() => {
     getBooks();
-  }, [])
+  }, [categorySelect])
 
   async function getBooks() {
-    const { data } = await api.get("/");
-    setBooks(data.items);
+    setLoading(true);
 
+    try {
+      const { data } = await booksAsync.get(`${categorySelect}`)
+      setBooks(data.items);
+      setLoading(false);
+
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  }
+
+  function handleCategory(category: string) {
+    setCategorySelect(category)
   }
 
 
@@ -69,7 +88,7 @@ const Home: React.FC = () => {
 
       <Content>
         <Title>Bem vindo de volta, Anderson!</Title>
-        <TitleReady>O que você deseja {"\n"}ler hoje?</TitleReady>
+        <TitleReady>O que você deseja {"\n"}pesquisar hoje?</TitleReady>
       </Content>
 
       <BoxSearch>
@@ -87,19 +106,26 @@ const Home: React.FC = () => {
         }}
       >
         {categories.map(category => (
-          <TitleCategory key={category.key}>{category.name}</TitleCategory>
+          <TouchableOpacity onPress={() => handleCategory(category.id)} key={category.key}>
+            <TitleCategory>{category.name}</TitleCategory>
+          </TouchableOpacity>
         ))}
 
       </Categories>
 
-      <FlatList
-        data={book}
-        horizontal={true}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-              <Book data={item} />
-        )}
-      />
+      {loading ? 
+      
+      <Loading color={themes.colors.primary}/> 
+      :
+        <FlatList
+          data={book}
+          horizontal={true}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Book data={item} />
+          )}
+        />
+      }
 
     </Container>
   );

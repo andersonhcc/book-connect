@@ -32,7 +32,6 @@ const InfoBook = ({ closeModal, data }: Props) => {
     <Container>
 
       <StatusBar
-        translucent
         backgroundColor="transparent"
       />
 
@@ -43,18 +42,18 @@ const InfoBook = ({ closeModal, data }: Props) => {
 
         <ImageBook source={{ uri: `${data.volumeInfo.imageLinks.thumbnail}` }} />
         <Title>{data.volumeInfo.title}</Title>
-        <Author>{data.volumeInfo.authors[0]}</Author>
+        <Author></Author>
       </Header>
 
       <Main>
         <BoxAbout>
-          <TitleAbout>Sobre o autor</TitleAbout>
-          <About></About>
+          <TitleAbout>Data de publicação</TitleAbout>
+          <About>{data.volumeInfo.publishedDate}</About>
         </BoxAbout>
 
         <BoxDescription>
           <TitleDescription>Descrição</TitleDescription>
-          <Description></Description>
+          <Description>{data.volumeInfo.description}</Description>
         </BoxDescription>
 
       </Main>

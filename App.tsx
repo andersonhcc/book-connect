@@ -50,6 +50,12 @@ export default function App() {
   return (
     <ThemeProvider>
 
+      <StatusBar 
+        translucent
+        barStyle="dark-content"
+        backgroundColor="transparent"
+      />
+
       <GestureHandlerRootView style={{ flex: 1 }}>
         <Routes />
 
