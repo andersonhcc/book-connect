@@ -1,54 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { FlatList } from 'react-native';
+import React, { useEffect } from 'react';
+
+import { FlatList, TouchableOpacity, StatusBar } from 'react-native';
+
+import { categories } from '@utils/categories';
 
 import { useHomeInViewModel } from './view.models';
-import { categories } from '@utils/categories';
-import { StatusBar } from 'react-native';
-
 import { useTheme } from 'styled-components';
 
-import { useThemeProvider } from '@global/styles/theme';
-import { ThemeType } from '@global/styles/theme';
-import { IBook } from '@dtos/index';
-
 import { Book } from '@components/Book';
+import { Loading } from '@components/Loading';
 
 import { booksAsync } from '@services/index';
 
-import {
-  Container,
-  Header,
-  ButtonMenu,
-  ImageProfile,
-  IconMenu,
-  Content,
-  Title,
-  TitleReady,
-  BoxSearch,
-  IconSearch,
-  InputSearch,
-  IconMicro,
-  Categories,
-  TitleCategory,
-  Main,
-} from './styles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Loading } from '@components/Loading';
-
+import * as S from './styles';
 
 const Home: React.FC = () => {
 
-  const { openMenu } = useHomeInViewModel();
-  const { theme } = useThemeProvider();
-  const isDarkTheme = theme === ThemeType.dark;
-  const [book, setBooks] = useState<IBook[]>([]);
-  const [categorySelect, setCategorySelect] = useState('programming')
-  const [loading, setLoading] = useState(false);
-  const themes = useTheme();
+  const {
+    openMenu,
+    books,
+    setBooks,
+    categorySelect,
+    setCategorySelect,
+    loading,
+    setLoading,
+    isDarkTheme,
+    search,
+    setSearch
+  } = useHomeInViewModel();
 
+  const themes = useTheme();
 
   useEffect(() => {
     getBooks();
+    searchBook();
   }, [categorySelect])
 
   async function getBooks() {
@@ -69,35 +54,54 @@ const Home: React.FC = () => {
     setCategorySelect(category)
   }
 
+  async function searchBook() {
+    try {
+      const { data } = await booksAsync.get(`${search}`)
+      console.log(data);
+      setBooks(data.items);
+      setLoading(false);
+
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+
+  }
 
   return (
-    <Container>
+    <S.Container>
       <StatusBar
         barStyle={isDarkTheme ? 'light-content' : 'dark-content'}
         backgroundColor="transparent"
         translucent
       />
 
-      <Header>
-        <ButtonMenu onPress={openMenu}>
-          <IconMenu />
-        </ButtonMenu>
+      <S.Header>
+        <S.ButtonMenu onPress={openMenu}>
+          <S.IconMenu />
+        </S.ButtonMenu>
 
-        <ImageProfile source={{ uri: 'https://ui-avatars.com/api/?background=random&name=anderson' }} />
-      </Header>
+        <S.ImageProfile source={{ uri: 'https://ui-avatars.com/api/?background=random&name=anderson' }} />
+      </S.Header>
 
-      <Content>
-        <Title>Bem vindo de volta, Anderson!</Title>
-        <TitleReady>O que você deseja {"\n"}pesquisar hoje?</TitleReady>
-      </Content>
+      <S.Content>
+        <S.Title>Bem vindo de volta, Anderson!</S.Title>
+        <S.TitleReady>O que você deseja {"\n"}pesquisar hoje?</S.TitleReady>
+      </S.Content>
 
-      <BoxSearch>
-        <IconSearch />
-        <InputSearch />
-        <IconMicro />
-      </BoxSearch>
+      <S.BoxSearch>
+        <S.IconSearch />
+        <S.InputSearch 
+          value={search}
+          onChangeText={setSearch}
+          placeholder="Digite o nome do livro"
+          returnKeyType="done"
+          onSubmitEditing={searchBook}
+        />
+        <S.IconMicro />
+      </S.BoxSearch>
 
-      <Categories
+      <S.Categories
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
@@ -107,18 +111,18 @@ const Home: React.FC = () => {
       >
         {categories.map(category => (
           <TouchableOpacity onPress={() => handleCategory(category.id)} key={category.key}>
-            <TitleCategory>{category.name}</TitleCategory>
+            <S.TitleCategory isActive={categorySelect === category.id}>{category.name}</S.TitleCategory>
           </TouchableOpacity>
         ))}
 
-      </Categories>
+      </S.Categories>
 
-      {loading ? 
-      
-      <Loading color={themes.colors.primary}/> 
-      :
+      {loading ?
+
+        <Loading color={themes.colors.primary} />
+        :
         <FlatList
-          data={book}
+          data={books}
           horizontal={true}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
@@ -127,7 +131,7 @@ const Home: React.FC = () => {
         />
       }
 
-    </Container>
+    </S.Container>
   );
 
 };

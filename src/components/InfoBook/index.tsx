@@ -40,7 +40,7 @@ const InfoBook = ({ closeModal, data }: Props) => {
           <ButtonBack onPress={closeModal}/>
         </WrapperButton>
 
-        <ImageBook source={{ uri: `${data.volumeInfo.imageLinks.thumbnail}` }} />
+        <ImageBook source={{ uri: `${data.volumeInfo?.imageLinks.thumbnail}` }} />
         <Title>{data.volumeInfo.title}</Title>
         <Author></Author>
       </Header>

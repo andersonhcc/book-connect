@@ -20,8 +20,8 @@ function Book({ data }: Props) {
   const [visible, setVisible] = useState(false);
   return (
     <Container onPress={() => setVisible(true)}>
-      <ImageBook source={{ uri: `${data.volumeInfo.imageLinks.thumbnail}` }} />
-      <TitleBook>{data.volumeInfo.title}</TitleBook>
+      <ImageBook source={{ uri: `${data.volumeInfo.imageLinks?.thumbnail}` }} />
+      <TitleBook>{data.volumeInfo?.title}</TitleBook>
       <AuthorBook></AuthorBook>
 
 

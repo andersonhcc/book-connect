@@ -1,13 +1,15 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { Feather, FontAwesome } from "@expo/vector-icons";
 
+type Props = {
+  isActive: boolean;
+}
+
 export const Container = styled.View`
   flex: 1;
-
   background-color: ${({ theme }) => theme.colors.background};
-
 `;
 
 export const Header = styled.View`
@@ -85,7 +87,7 @@ export const IconSearch = styled(Feather).attrs({
 export const InputSearch = styled.TextInput`
   width: 90%;
 
-  color: ${({ theme }) => theme.colors.title};
+  color: ${({ theme }) => theme.colors.gray};
   font-size: ${RFValue(16)}px;
   padding: 0 15px;
 
@@ -101,12 +103,13 @@ export const IconMicro = styled(FontAwesome).attrs({
 
 export const Categories = styled.ScrollView``;
 
-export const TitleCategory = styled.Text`
-  color: ${({ theme }) => theme.colors.gray};
+export const TitleCategory = styled.Text<Props>`
+
+  ${({ theme, isActive }) => isActive ? css`color: ${theme.colors.primary};` : css`color: ${theme.colors.gray};`}
+ 
   font-family: ${({ theme }) => theme.fonts.medium};
   font-size: ${RFValue(16)}px;
   margin-left: 10px;
-
 `;
 
 export const Main = styled.View``;
