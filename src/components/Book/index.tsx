@@ -3,14 +3,7 @@ import { Modal } from 'react-native';
 
 import { InfoBook } from '@components/InfoBook';
 
-import {
-  Container,
-  ImageBook,
-  TitleBook,
-  AuthorBook,
-} from './styles'
-
-import { IBook } from 'src/dtos';
+import * as S from './styles';
 
 type Props = {
   data: any;
@@ -19,12 +12,9 @@ type Props = {
 function Book({ data }: Props) {
   const [visible, setVisible] = useState(false);
   return (
-    <Container onPress={() => setVisible(true)}>
-      <ImageBook source={{ uri: `${data.volumeInfo.imageLinks?.thumbnail}` }} />
-      <TitleBook>{data.volumeInfo?.title}</TitleBook>
-      <AuthorBook></AuthorBook>
-
-
+    <S.Container onPress={() => setVisible(true)}>
+      <S.ImageBook source={{ uri: `${data.volumeInfo.imageLinks?.thumbnail}` }} />
+      <S.TitleBook>{data.volumeInfo?.title}</S.TitleBook>
       <Modal
         animationType='fade'
         visible={visible}
@@ -35,8 +25,7 @@ function Book({ data }: Props) {
         />
 
       </Modal>
-
-    </Container>
+    </S.Container>
   );
 
 };

@@ -57,7 +57,6 @@ const Home: React.FC = () => {
   async function searchBook() {
     try {
       const { data } = await booksAsync.get(`${search}`)
-      console.log(data);
       setBooks(data.items);
       setLoading(false);
 
@@ -91,7 +90,7 @@ const Home: React.FC = () => {
 
       <S.BoxSearch>
         <S.IconSearch />
-        <S.InputSearch 
+        <S.InputSearch
           value={search}
           onChangeText={setSearch}
           placeholder="Digite o nome do livro"

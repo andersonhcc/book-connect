@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SceneName } from './scene-name';
 import { useTheme } from 'styled-components';
 
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 
 import { Home } from '@screens/Home/view';
@@ -56,24 +56,6 @@ export const AppRoutes: React.FC = () => {
         }}
 
       />
-
-
-      <Tab.Screen
-        name={"sas"}
-        component={Home}
-        options={{
-          tabBarIcon: ({ color }) => {
-            return <FontAwesome name="book" size={24} color={color} />
-          }
-
-        }}
-
-      />
-
-
-
-
-
 
     </Tab.Navigator>
   )

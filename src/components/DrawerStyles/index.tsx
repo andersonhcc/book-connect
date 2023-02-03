@@ -1,42 +1,18 @@
 import React, { useContext, useState } from 'react';
-
 import { Switch } from 'react-native';
 
 import { useTheme } from 'styled-components';
-
 import { useNavigation } from '@react-navigation/native';
+
 import { SceneName } from '@routes/scene-name';
+import * as S from './styles';
 
 import {
   DrawerContentScrollView,
   DrawerItem
 } from '@react-navigation/drawer';
 
-import {
-  Container,
-  Content,
-  Header,
-  Avatar,
-  Title,
-  TitleEmail,
-  WrapperData,
-  WrapperInfos,
-  ContentDrawer,
-  IconAnt,
-  IconIo,
-  IconMaterial,
-  BoxItems,
-  TitlePreferences,
-  BoxThemeMode,
-  TItleTheme,
-  ButtonLogout,
-  TitleLogout,
-  IconExit,
-
-} from './styles';
 import { ThemeContext, ThemeType } from '@global/styles/theme';
-
-
 const DrawerStyles = (props: any) => {
 
   const theme = useTheme();
@@ -52,27 +28,27 @@ const DrawerStyles = (props: any) => {
   const isDarkTheme = themes === ThemeType.dark;
 
   return (
-    <Container>
+    <S.Container>
       <DrawerContentScrollView {...props}>
-        <Content>
-          <Header>
-            <WrapperData>
-              <Avatar source={{ uri: "https://ui-avatars.com/api/?background=random&name=anderson" }} />
-              <WrapperInfos>
-                <Title>Anderson</Title>
-                <TitleEmail>anderson@anderson.com</TitleEmail>
-              </WrapperInfos>
-            </WrapperData>
-          </Header>
+        <S.Content>
+          <S.Header>
+            <S.WrapperData>
+              <S.Avatar source={{ uri: "https://ui-avatars.com/api/?background=random&name=anderson" }} />
+              <S.WrapperInfos>
+                <S.Title>Anderson</S.Title>
+                <S.TitleEmail>anderson@anderson.com</S.TitleEmail>
+              </S.WrapperInfos>
+            </S.WrapperData>
+          </S.Header>
 
-        </Content>
+        </S.Content>
 
-        <ContentDrawer>
+        <S.ContentDrawer>
 
-          <BoxItems>
+          <S.BoxItems>
 
             <DrawerItem icon={() => (
-              <IconIo name="home" />
+              <S.IconIo name="home" />
             )}
               label="Início"
               labelStyle={{
@@ -82,7 +58,7 @@ const DrawerStyles = (props: any) => {
             />
 
             <DrawerItem icon={() => (
-              <IconMaterial name="share-outline" />
+              <S.IconMaterial name="share-outline" />
             )}
               label="Compartilhar"
               labelStyle={{
@@ -92,7 +68,7 @@ const DrawerStyles = (props: any) => {
             />
 
             <DrawerItem icon={() => (
-              <IconAnt name="infocirlceo" />
+              <S.IconAnt name="infocirlceo" />
             )}
               label="Sobre"
               labelStyle={{
@@ -101,12 +77,12 @@ const DrawerStyles = (props: any) => {
               onPress={() => navigation.navigate(SceneName.Home)}
             />
 
-          </BoxItems>
+          </S.BoxItems>
 
-          <TitlePreferences>Preferências</TitlePreferences>
+          <S.TitlePreferences>Preferências</S.TitlePreferences>
 
-          <BoxThemeMode>
-            <TItleTheme>Tema Light</TItleTheme>
+          <S.BoxThemeMode>
+            <S.TItleTheme>Tema Light</S.TItleTheme>
             <Switch
               trackColor={{ false: '#767577', true: `${theme.colors.title}` }}
               thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
@@ -115,17 +91,17 @@ const DrawerStyles = (props: any) => {
               value={isDarkTheme}
               style={{ marginRight: 5 }}
             />
-          </BoxThemeMode>
+          </S.BoxThemeMode>
 
-          <ButtonLogout>
-            <IconExit />
-            <TitleLogout>Sair</TitleLogout>
-          </ButtonLogout>
+          <S.ButtonLogout>
+            <S.IconExit />
+            <S.TitleLogout>Sair</S.TitleLogout>
+          </S.ButtonLogout>
 
-        </ContentDrawer>
+        </S.ContentDrawer>
 
       </DrawerContentScrollView>
-    </Container >
+    </S.Container >
   );
 };
 
