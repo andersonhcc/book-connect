@@ -4,10 +4,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SceneName } from './scene-name';
 import { useTheme } from 'styled-components';
 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 import { Home } from '@screens/Home/view';
+import { BooksFavorite } from '@screens/BooksFavorite/view';
 
 const Tab = createBottomTabNavigator();
 
@@ -51,6 +52,18 @@ export const AppRoutes: React.FC = () => {
         options={{
           tabBarIcon: ({ color }) => {
             return <Ionicons name="home" size={24} color={color} />
+          }
+
+        }}
+
+      />
+
+      <Tab.Screen
+        name={SceneName.BooksFavorite}
+        component={BooksFavorite}
+        options={{
+          tabBarIcon: ({ color }) => {
+            return <MaterialCommunityIcons name="bookshelf" size={24} color={color} />
           }
 
         }}

@@ -4,8 +4,8 @@ import { DrawerActions } from "@react-navigation/native";
 import { useThemeProvider } from "@global/styles/theme";
 import { useNavigation } from '@react-navigation/native';
 import { ThemeType } from "@global/styles/theme";
-import { IBook } from "@dtos/index";
-
+import { IBook } from "@models/IBook";
+import { booksAsync } from '@services/index';
 
 const useHomeInViewModel = (): HomeViewModel => {
   const navigation = useNavigation();
@@ -20,6 +20,33 @@ const useHomeInViewModel = (): HomeViewModel => {
     navigation.dispatch(DrawerActions.openDrawer);
   }
 
+
+ const  getBooks = async () => {
+    setLoading(true);
+
+    try {
+      const { data } = await booksAsync.get(`${categorySelect}`)
+      setBooks(data.items);
+      setLoading(false);
+
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  }
+
+ const  searchBook = async () => {
+    try {
+      const { data } = await booksAsync.get(`${search}`)
+      setBooks(data.items);
+      setLoading(false);
+
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  }
+
   return {
     openMenu,
     books,
@@ -31,6 +58,8 @@ const useHomeInViewModel = (): HomeViewModel => {
     isDarkTheme,
     search,
     setSearch,
+    getBooks,
+    searchBook,
   }
 
 }

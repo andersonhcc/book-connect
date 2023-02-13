@@ -1,5 +1,7 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
+import { MaterialIcons } from '@expo/vector-icons'; 
+
 
 export const Container = styled.ScrollView`
   flex: 1;
@@ -9,8 +11,19 @@ export const Container = styled.ScrollView`
 
 export const WrapperButton = styled.View`
   width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
   padding-bottom: 26px;
 `;
+
+export const ButtonFavorite = styled.Pressable``;
+
+export const IconFavorite = styled(MaterialIcons).attrs({
+  size: 30
+})`
+  color: ${({ theme }) => theme.colors.title};
+  margin-right: 20px;
+`
 
 
 export const Header = styled.View`

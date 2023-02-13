@@ -11,4 +11,6 @@ export interface HomeViewModel {
   isDarkTheme: boolean;
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  getBooks():void;
+  searchBook():void;
 }

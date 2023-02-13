@@ -15,6 +15,7 @@ module.exports = function(api) {
             '@global': './src/global',
             '@services': './src/services',
             '@models': './src/models',
+            '@animations': './src/animations',
           }
         },
       ],

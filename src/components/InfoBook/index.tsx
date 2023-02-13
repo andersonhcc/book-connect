@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'react-native';
 
 import { ButtonBack } from '@components/ButtonBack';
@@ -9,10 +9,14 @@ import { Props } from './types';
 
 const InfoBook = ({ closeModal, data }: Props) => {
   const { colors } = useTheme();
+  const [isFavorite, setFavorite] = useState(false);
+
+  const handleFavorite = () => {
+    setFavorite(e => !e)
+  }
 
   return (
     <S.Container>
-
       <StatusBar
         backgroundColor="transparent"
       />
@@ -20,6 +24,14 @@ const InfoBook = ({ closeModal, data }: Props) => {
       <S.Header>
         <S.WrapperButton>
           <ButtonBack onPress={closeModal} color={colors.gray} />
+
+          {isFavorite ? <S.ButtonFavorite onPress={handleFavorite}>
+            <S.IconFavorite name={"favorite"} />
+          </S.ButtonFavorite> : <S.ButtonFavorite onPress={handleFavorite}>
+            <S.IconFavorite name={"favorite-border"} />
+          </S.ButtonFavorite>}
+
+
         </S.WrapperButton>
 
         <S.ImageBook source={{ uri: `${data.volumeInfo?.imageLinks.thumbnail}` }} />

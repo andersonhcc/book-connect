@@ -42,10 +42,11 @@ export const ImageProfile = styled.Image`
 
 `;
 
-export const Content = styled.Text`
+export const Content = styled.View`
+  width: 100%;
   padding-top: 34px;
   padding-left: 5%;
-  padding-right: 100px;
+  padding-right: 80px;
 `;
 
 export const Title = styled.Text`

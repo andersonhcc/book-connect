@@ -10,8 +10,6 @@ import { useTheme } from 'styled-components';
 import { Book } from '@components/Book';
 import { Loading } from '@components/Loading';
 
-import { booksAsync } from '@services/index';
-
 import * as S from './styles';
 
 const Home: React.FC = () => {
@@ -19,11 +17,11 @@ const Home: React.FC = () => {
   const {
     openMenu,
     books,
-    setBooks,
     categorySelect,
     setCategorySelect,
+    getBooks,
+    searchBook,
     loading,
-    setLoading,
     isDarkTheme,
     search,
     setSearch
@@ -36,35 +34,9 @@ const Home: React.FC = () => {
     searchBook();
   }, [categorySelect])
 
-  async function getBooks() {
-    setLoading(true);
 
-    try {
-      const { data } = await booksAsync.get(`${categorySelect}`)
-      setBooks(data.items);
-      setLoading(false);
-
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-    }
-  }
-
-  function handleCategory(category: string) {
+  const handleCategory = (category: string) => {
     setCategorySelect(category)
-  }
-
-  async function searchBook() {
-    try {
-      const { data } = await booksAsync.get(`${search}`)
-      setBooks(data.items);
-      setLoading(false);
-
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-    }
-
   }
 
   return (
@@ -84,7 +56,7 @@ const Home: React.FC = () => {
       </S.Header>
 
       <S.Content>
-        <S.Title>Bem vindo de volta, Anderson!</S.Title>
+        <S.Title>Bem vindo de volta, Anderson! 👋</S.Title>
         <S.TitleReady>O que você deseja {"\n"}pesquisar hoje?</S.TitleReady>
       </S.Content>
 
@@ -117,7 +89,6 @@ const Home: React.FC = () => {
       </S.Categories>
 
       {loading ?
-
         <Loading color={themes.colors.primary} />
         :
         <FlatList

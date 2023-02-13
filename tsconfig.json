@@ -11,6 +11,7 @@
       "@global/*": ["./src/global/*"],
       "@services/*": ["./src/services/*"],
       "@models/*": ["src/models/*"],
+      "@animations/*": ["src/animations/*"],
     }
   },
   "extends": "expo/tsconfig.base"
