@@ -10,7 +10,7 @@
       "@utils/*": ["./src/utils/*"],
       "@global/*": ["./src/global/*"],
       "@services/*": ["./src/services/*"],
-      "@dtos/*": ["./src/dtos/*"],
+      "@models/*": ["src/models/*"],
     }
   },
   "extends": "expo/tsconfig.base"

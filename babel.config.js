@@ -14,7 +14,7 @@ module.exports = function(api) {
             '@utils': './src/utils',
             '@global': './src/global',
             '@services': './src/services',
-            '@dtos': './src/dtos',
+            '@models': './src/models',
           }
         },
       ],

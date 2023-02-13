@@ -1,26 +1,21 @@
 import React from 'react';
-import { TouchableOpacityProps } from 'react-native';
 
 import * as S from './styles';
 
-interface Props extends TouchableOpacityProps {
-  icon?: string;
-  color?: string;
-  marginTop?: number;
-}
+import { Props } from './types';
 
 export function ButtonBack({
-    icon, 
-    color,
-    marginTop,
-    ...rest} 
-    : Props) {
+  icon,
+  color,
+  marginTop,
+  ...rest }
+  : Props) {
   return (
-    <S.Container 
-    marginTop={marginTop}
-    {...rest}
+    <S.Container
+      marginTop={marginTop}
+      {...rest}
     >
-      <S.IconBack name="left" color={color} size={20}/>
+      <S.IconBack name="left" color={color} size={20} />
     </S.Container>
   );
 }

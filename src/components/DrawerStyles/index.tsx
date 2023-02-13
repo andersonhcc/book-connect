@@ -13,17 +13,13 @@ import {
 } from '@react-navigation/drawer';
 
 import { ThemeContext, ThemeType } from '@global/styles/theme';
+
 const DrawerStyles = (props: any) => {
 
   const theme = useTheme();
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
   const { toggleTheme, theme: themes } = useContext(ThemeContext);
-
-  function toggleSwitch() {
-
-    setIsEnabled(prevState => !prevState)
-  }
 
   const isDarkTheme = themes === ThemeType.dark;
 

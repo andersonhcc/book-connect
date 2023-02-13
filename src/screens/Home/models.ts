@@ -1,4 +1,4 @@
-import { IBook } from "@dtos/index";
+import { IBook } from "@models/IBook";
 
 export interface HomeViewModel {
   openMenu(): void;

@@ -4,7 +4,7 @@ import { FlatList, TouchableOpacity, StatusBar } from 'react-native';
 
 import { categories } from '@utils/categories';
 
-import { useHomeInViewModel } from './view.models';
+import { useHomeInViewModel } from '../view.models';
 import { useTheme } from 'styled-components';
 
 import { Book } from '@components/Book';

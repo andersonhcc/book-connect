@@ -5,11 +5,7 @@ import { ButtonBack } from '@components/ButtonBack';
 import { useTheme } from 'styled-components';
 
 import * as S from './styles';
-
-type Props = {
-  closeModal(): void;
-  data: any;
-}
+import { Props } from './types';
 
 const InfoBook = ({ closeModal, data }: Props) => {
   const { colors } = useTheme();
