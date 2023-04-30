@@ -14,7 +14,7 @@ export function AuthRoutes() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, headerLeft: undefined, gestureEnabled: false, }}
-      initialRouteName={SceneName.Home}
+      initialRouteName={SceneName.SignIn}
     >
 
       <Stack.Screen

@@ -33,10 +33,10 @@ export const Title = styled.Text`
 `;
 
 export const SubTitle = styled.Text`
-  font-size: ${RFValue(14)}px;
+  font-size: ${RFValue(12)}px;
+  margin: 10px 0px;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.gray};
-
   text-align: center;
 `;
 
@@ -48,8 +48,8 @@ export const ButtonAuth = styled(RectButton)`
   flex-direction: row;
   margin-top: 21px;
   background-color: ${({ theme }) => theme.colors.primary};
-  width: ${RFValue(330)}px;
-  height: 62px;
+  width: ${RFValue(300)}px;
+  height: 50px;
 
   justify-content: center;
   align-items: center;
@@ -61,6 +61,6 @@ export const ButtonAuth = styled(RectButton)`
 export const TextAuth = styled.Text`
   color: ${({ theme }) => theme.colors.white};
   font-family: ${({ theme }) => theme.fonts.medium};
-  font-size: ${RFValue(16)}px;
+  font-size: ${RFValue(12)}px;
   margin-left: 16px;
 `;

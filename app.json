@@ -2,9 +2,15 @@
   "expo": {
     "name": "libraryDev",
     "slug": "libraryDev",
+    "scheme": "demo",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "348ca63b-6b11-4e9e-a82a-3ffc0c5e96c5"
+      }
+    }
   }
 }
