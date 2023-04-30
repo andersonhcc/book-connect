@@ -14,13 +14,12 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  padding-top: 46px;
-  padding-left: 2%;
 
   flex-direction: row;
 
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 46px 5% 0 5%;
 `;
 
 export const ButtonMenu = styled(RectButton)``;
@@ -30,7 +29,6 @@ export const IconMenu = styled(Feather).attrs({
 })`
   font-size: ${RFValue(35)}px;
   color: ${({ theme }) => theme.colors.title};
-  margin-right: 20%;
 
 `;
 

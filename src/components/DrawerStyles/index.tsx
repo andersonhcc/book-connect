@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { Switch } from 'react-native';
+import { Switch, Share, Modal } from 'react-native';
 
 import { useTheme } from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
-
+import { About } from '@components/About';
 import { SceneName } from '@routes/scene-name';
 import * as S from './styles';
 
@@ -19,9 +19,35 @@ const DrawerStyles = (props: any) => {
   const theme = useTheme();
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
+  const [visibleAbout, setVisibleAbout] = useState(false);
   const { toggleTheme, theme: themes } = useContext(ThemeContext);
 
   const isDarkTheme = themes === ThemeType.dark;
+
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'App Library Dev | Compartilhe o app com seus amigos!',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+        } else {
+        }
+      } else if (result.action === Share.dismissedAction) {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const openAbout = () => {
+    setVisibleAbout(true)
+  }
+
+  const closeAbout = () => {
+    setVisibleAbout(false)
+  }
 
   return (
     <S.Container>
@@ -60,7 +86,7 @@ const DrawerStyles = (props: any) => {
               labelStyle={{
                 color: theme.colors.gray
               }}
-              onPress={() => navigation.navigate(SceneName.Home)}
+              onPress={onShare}
             />
 
             <DrawerItem icon={() => (
@@ -70,7 +96,7 @@ const DrawerStyles = (props: any) => {
               labelStyle={{
                 color: theme.colors.gray
               }}
-              onPress={() => navigation.navigate(SceneName.Home)}
+              onPress={openAbout}
             />
 
           </S.BoxItems>
@@ -78,7 +104,7 @@ const DrawerStyles = (props: any) => {
           <S.TitlePreferences>Preferências</S.TitlePreferences>
 
           <S.BoxThemeMode>
-            <S.TItleTheme>Tema Light</S.TItleTheme>
+            <S.TItleTheme>Modo Dark</S.TItleTheme>
             <Switch
               trackColor={{ false: '#767577', true: `${theme.colors.title}` }}
               thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
@@ -95,6 +121,14 @@ const DrawerStyles = (props: any) => {
           </S.ButtonLogout>
 
         </S.ContentDrawer>
+
+        <Modal visible={visibleAbout} animationType='slide'
+          presentationStyle="pageSheet"
+          onRequestClose={closeAbout} >
+          <About closeAbout={closeAbout} />
+
+        </Modal>
+
 
       </DrawerContentScrollView>
     </S.Container >
