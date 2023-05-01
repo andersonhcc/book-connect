@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { ButtonBack } from '@components/ButtonBack';
 import { useTheme } from 'styled-components';
@@ -7,12 +8,40 @@ import { useTheme } from 'styled-components';
 import * as S from './styles';
 import { Props } from './types';
 
-const InfoBook = ({ closeModal, data }: Props) => {
+const InfoBook = ({ closeModal, data, isFavorite: isFavoriteProps = false }: Props) => {
   const { colors } = useTheme();
-  const [isFavorite, setFavorite] = useState(false);
+  const [isFavorite, setFavorite] = useState(isFavoriteProps);
 
-  const handleFavorite = () => {
-    setFavorite(e => !e)
+  
+
+  // const handleFavorite = async () => {
+  //   try {
+  //     const books = await AsyncStorage.getItem("@applibrarydev");
+  //     const booksFavoritesFormatted: [] = books !== null ? JSON.parse(books || "") : [];
+  //    let booksFavorites = booksFavoritesFormatted.push(data);
+  //     await AsyncStorage.setItem('@applibrarydev', JSON.stringify(booksFavorites));
+  //     setFavorite(e => !e)
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
+
+  async function handleFavorite() {
+    try {
+      const books = await AsyncStorage.getItem("@applibrarydev");
+      let booksFavoritesFormatted = books != null ? JSON.parse(books) : [];
+      
+      if (!Array.isArray(booksFavoritesFormatted)) {
+        booksFavoritesFormatted = [];
+      }
+      booksFavoritesFormatted.push(data);
+  
+      await AsyncStorage.setItem("@applibrarydev", JSON.stringify(booksFavoritesFormatted));
+      setFavorite(e => !e)
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

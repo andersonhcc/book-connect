@@ -1,8 +1,9 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { IUser } from "@models/IUser";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import { Alert } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -23,6 +24,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 
   const [user, setUser] = useState({} as IUser)
   const [isAuthenticated, setIsAuthenticated] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
 
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -55,6 +57,8 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
       });
 
       setIsAuthenticated(tokendata);
+      await AsyncStorage.setItem("@devapplibrary", JSON.stringify(tokendata))
+
     } catch (err) {
       console.log(err);
       Alert.alert("Opa", "Algo de errado aconteceu")
@@ -62,15 +66,30 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     setIsAuthenticated("")
-    setUser({
-      email:'',
-      photo: '',
-      name: '',
-    });
+    await AsyncStorage.clear().then(() => {
+        setUser({
+          email:'',
+          photo: '',
+          name: '',
+        });
+  })
+}
 
+const getUser = async () => {
+  const userInfo = await AsyncStorage.getItem('@devapplibrary');
+  const hasUser = JSON.parse(userInfo || '{}');
+
+  if (Object.keys(hasUser).length > 0) {
+    getUserInfo(hasUser)
   }
+  setIsLoading(false);
+};
+
+useEffect(() => {
+  getUser();
+},[])
 
   return (
     <AuthContext.Provider value={{

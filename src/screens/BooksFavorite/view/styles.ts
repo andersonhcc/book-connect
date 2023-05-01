@@ -21,5 +21,6 @@ export const Title = styled.Text`
 
 export const Main = styled.View`
   width: 100%;
+  flex: 1;
   padding-top: 10%;
 `;

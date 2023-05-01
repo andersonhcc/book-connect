@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
-
 import { Container, Header, Title, Main } from './styles';
 import { FlatList } from 'react-native';
-import { useHomeInViewModel } from '@screens/Home/view.models';
 import { Book } from '@components/Book';
 import { FadeAnimation } from '@animations/FadeAnimation/index';
-
+import useBooksFavoriteInViewModel from '../view.models';
+import { Loading } from '@components/Loading';
 const BooksFavorite: React.FC = () => {
-   const { getBooks, books } = useHomeInViewModel();
+   const { getBooksFavorite, books, isLoading } = useBooksFavoriteInViewModel();
 
    useEffect(() => {
-      getBooks();
-   }, [])
+      getBooksFavorite();
+   },[])
 
    return (
       <Container>
@@ -19,19 +18,20 @@ const BooksFavorite: React.FC = () => {
             <Title>Livros favoritos 📚</Title>
          </Header>
 
+         {isLoading ? <Loading /> :  
          <Main>
-            <FadeAnimation>
 
-               <FlatList
-                  data={books}
-                  keyExtractor={item => item.id}
-                  renderItem={({ item }) => (
-                     <Book data={item} />
-                  )}
-               />
-            </FadeAnimation>
-
-         </Main>
+        <FlatList
+        data={books}
+        horizontal={true}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Book data={item} isFavorite />
+        )}
+        
+        />
+        </Main>
+         }
       </Container>
    );
 

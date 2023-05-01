@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import { FlatList, TouchableOpacity, StatusBar } from 'react-native';
-
 import { categories } from '@utils/categories';
 
 import { useHomeInViewModel } from '../view.models';
@@ -14,8 +13,6 @@ import { Loading } from '@components/Loading';
 import * as S from './styles';
 
 const Home: React.FC = () => {
-
-
   const {
     openMenu,
     books,
@@ -100,7 +97,7 @@ const Home: React.FC = () => {
           horizontal={true}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <Book data={item} />
+            <Book data={item} isFavorite={false} />
           )}
         />
       }
