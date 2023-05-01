@@ -6,6 +6,7 @@ import { categories } from '@utils/categories';
 
 import { useHomeInViewModel } from '../view.models';
 import { useTheme } from 'styled-components';
+import { useAuth } from '../../../hooks/useAuth';
 
 import { Book } from '@components/Book';
 import { Loading } from '@components/Loading';
@@ -30,6 +31,8 @@ const Home: React.FC = () => {
 
   const themes = useTheme();
 
+  const {user} = useAuth();
+
   useEffect(() => {
     getBooks();
     searchBook();
@@ -53,11 +56,11 @@ const Home: React.FC = () => {
           <S.IconMenu />
         </S.ButtonMenu>
 
-        <S.ImageProfile source={{ uri: 'https://ui-avatars.com/api/?background=random&name=anderson' }} />
+        <S.ImageProfile source={{ uri: user?.photo }} />
       </S.Header>
 
       <S.Content>
-        <S.Title>Bem vindo de volta, Anderson! 👋</S.Title>
+        <S.Title>Bem vindo de volta, {user?.name}! 👋</S.Title>
         <S.TitleReady>O que você deseja {"\n"}pesquisar hoje?</S.TitleReady>
       </S.Content>
 

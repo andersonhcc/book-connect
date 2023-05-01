@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { About } from '@components/About';
 import { SceneName } from '@routes/scene-name';
 import * as S from './styles';
+import { useAuth } from '../../hooks/useAuth';
 
 import {
   DrawerContentScrollView,
@@ -21,6 +22,7 @@ const DrawerStyles = (props: any) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [visibleAbout, setVisibleAbout] = useState(false);
   const { toggleTheme, theme: themes } = useContext(ThemeContext);
+  const {user, logout} = useAuth();
 
   const isDarkTheme = themes === ThemeType.dark;
 
@@ -55,10 +57,10 @@ const DrawerStyles = (props: any) => {
         <S.Content>
           <S.Header>
             <S.WrapperData>
-              <S.Avatar source={{ uri: "https://ui-avatars.com/api/?background=random&name=anderson" }} />
+              <S.Avatar source={{ uri: user?.photo }} />
               <S.WrapperInfos>
                 <S.Title>Anderson</S.Title>
-                <S.TitleEmail>anderson@anderson.com</S.TitleEmail>
+                <S.TitleEmail>{user?.email}</S.TitleEmail>
               </S.WrapperInfos>
             </S.WrapperData>
           </S.Header>
@@ -115,7 +117,7 @@ const DrawerStyles = (props: any) => {
             />
           </S.BoxThemeMode>
 
-          <S.ButtonLogout>
+          <S.ButtonLogout onPress={logout}>
             <S.IconExit />
             <S.TitleLogout>Sair</S.TitleLogout>
           </S.ButtonLogout>

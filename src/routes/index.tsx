@@ -13,8 +13,6 @@ export function Routes() {
   const theme = useTheme();
   const {isAuthenticated} = useAuth();
   const [loading, setLoading] = useState(false);
-
-  console.log(isAuthenticated);
   
   if (loading) {
     return (
@@ -23,7 +21,7 @@ export function Routes() {
   }
   return (
       <NavigationContainer>
-        {isAuthenticated ? <AppDrawer /> : <AuthRoutes />}
+        {!!isAuthenticated ? <AppDrawer /> : <AuthRoutes />}
       </NavigationContainer>
   )
 

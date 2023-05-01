@@ -5,11 +5,7 @@ import 'react-native-gesture-handler';
 import { AuthProvider } from '@global/context/AuthContext';
 import * as SplashScreen from "expo-splash-screen";
 
-
-
-
 import { ThemeType, useThemeProvider } from '@global/styles/theme';
-
 
 import { Routes } from './src/routes';
 import { ThemeProvider } from '@global/styles/theme';
@@ -22,14 +18,12 @@ import {
   Poppins_700Bold
 } from "@expo-google-fonts/poppins";
 
-
 SplashScreen.preventAutoHideAsync();
 SplashScreen.hideAsync();
 
 export default function App() {
   const { theme } = useThemeProvider();
   const isDarkTheme = theme === ThemeType.dark;
-
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -46,9 +40,6 @@ export default function App() {
 
 
   if (!fontsLoaded) return null;
-
-  console.log(isDarkTheme)
-
 
   return (
     <ThemeProvider>

@@ -13,7 +13,8 @@ interface IAuthProvider {
 type AuthDTO = {
   signIn: () => void;
   user: IUser;
-  isAuthenticated: boolean
+  isAuthenticated: string
+  logout: () => void;
 }
 
 export const AuthContext = createContext({} as AuthDTO);
@@ -21,7 +22,7 @@ export const AuthContext = createContext({} as AuthDTO);
 export const AuthProvider = ({ children }: IAuthProvider) => {
 
   const [user, setUser] = useState({} as IUser)
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState("");
 
 
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -31,7 +32,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
   });
 
   const signIn = async () => {
-    await promptAsync().then((response) => 
+    await promptAsync().then((response: any) => 
     getUserInfo(response.authentication.accessToken))
     .catch(err => console.log(err))
   }
@@ -53,7 +54,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
 
       });
 
-      setIsAuthenticated(true);
+      setIsAuthenticated(tokendata);
     } catch (err) {
       console.log(err);
       Alert.alert("Opa", "Algo de errado aconteceu")
@@ -61,11 +62,22 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     }
   };
 
+  const logout = () => {
+    setIsAuthenticated("")
+    setUser({
+      email:'',
+      photo: '',
+      name: '',
+    });
+
+  }
+
   return (
     <AuthContext.Provider value={{
       signIn,
       user,
       isAuthenticated,
+      logout,
     }}>
       {children}
     </AuthContext.Provider>
